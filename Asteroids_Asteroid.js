@@ -1,3 +1,15 @@
+/* Created an Asteroid class
+  *  this sets the properties of the asteroid  
+  * 	this._xPos,       this._yPos       	Position (x and y)  of the asteroid on canvas
+  *		this._xVelocity,  this._yVelocity  	Velocity (x and y speed) of the asteroid
+  *		this._radius						Radius of asteroid 
+  *		this._angle                         Angle the asteroid is traveling across canvas
+  *		this._vertices 						Vertices determines how many points the asteroid contains (polygon)
+  *		this._offs							Offset changes the shape of the asteroid (makes them jagged rather than looking like a circle)
+  *		
+  * code based on the work on the youtube channel Mt. Ford Studios -- Asteroids in JavaScript (1979 Atari game) - tutorial
+  * Revised by: Stanley Verch  - tutorial */
+
 class Asteroid {
     constructor(x_val, y_val, radius_val) {
         let gameLevel = aGame.level;

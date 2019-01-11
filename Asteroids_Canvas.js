@@ -1,8 +1,13 @@
+  /* This is the main application folder that displays the canvas 
+  * in the browser
+  *
+  * code based on the work on the youtube channel Mt. Ford Studios -- Asteroids in JavaScript (1979 Atari game) - tutorial
+  * Revised by: Stanley Verch  - tutorial */
+
 /** @type {HTMLCanvasElement} */
 let canv = document.getElementById("gameCanvas");
 let ctx = canv.getContext("2d");
-// game based on a youtube video  Code Asteroids in JavaScript (1979 Atari game) - tutorial
-//  from channel freeCodeCamp.org changed program by making classes 
+
 
 // set up the game parameters
 var aShip, asteroids, aGame;

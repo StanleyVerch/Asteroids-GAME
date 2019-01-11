@@ -1,3 +1,8 @@
+/* Created an constants script that set properties of how the game will run
+  *		
+  * code based on the work on the youtube channel Mt. Ford Studios -- Asteroids in JavaScript (1979 Atari game) - tutorial
+  * Revised by: Stanley Verch  - tutorial */
+
 const FPS = 60;                     // 30 frames per second
 const GAME_LIVES = 3                // starting number of lives
 const FRICTION = 0.7;               // friction coefficient of space (0 = no friction, 1 = lots of friction)

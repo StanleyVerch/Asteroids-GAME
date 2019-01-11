@@ -1,3 +1,15 @@
+/* Created an LaserBullet class
+  *  this sets the properties of the Game  
+  * 	this._xPos       	x position of the lasers bullet
+  *	 	this._yPos       	y position of the lasers bullet
+  *	    this._xVelocity		x speed of the lasers bullet
+  *		this._yVelocity		y speed of the lasers bullet		 
+  *		this._distance      tracks the maximum distance a bullet can travel (when distanced exceeded bullet removed from game)
+  *		this._explodeTime	how long the laser bullet takes to explode.
+  *		
+  * code based on the work on the youtube channel Mt. Ford Studios -- Asteroids in JavaScript (1979 Atari game) - tutorial
+  * Revised by: Stanley Verch  - tutorial */
+
 class LaserBullet {
     constructor(xPos, yPos, radius, angle) {
         this._xPos = xPos + (4 / 3 * radius * Math.cos(angle));

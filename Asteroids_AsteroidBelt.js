@@ -1,3 +1,14 @@
+/* Created an AsteroidBelt class
+  *  This class contains an array of asteroids 
+  *  It also class handles the movement of the asteroids
+  *	 It draws the asteroids
+  *  it handles collision detection with ship and the weapons bullets
+  *  it also handles the destruction of the asteroid when hit.
+  *		
+  * code based on the work on the youtube channel Mt. Ford Studios -- Asteroids in JavaScript (1979 Atari game) - tutorial
+  * Revised by: Stanley Verch  - tutorial */
+
+
 class AsteroidBelt {
 
     constructor(aShip) {

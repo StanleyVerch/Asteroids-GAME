@@ -1,3 +1,14 @@
+/* Created an Game class
+  *  this sets the properties of the Game  
+  * 	this._score       	Score of the game
+  *		this._level   		Level of the player has achieved
+  *	    this._lives			How many ships left
+  *		this._highScore		Tracks the high score a player achieved (stored in the browsers local.storage) 
+  *		this._gameText      displays text to inform the player of his status in the game
+  *		this._gameTextFade	how long game text remains on screen							
+  *		
+  * code based on the work on the youtube channel Mt. Ford Studios -- Asteroids in JavaScript (1979 Atari game) - tutorial
+  * Revised by: Stanley Verch  - tutorial */
 class Game {
     constructor() {
         let scoreStr1 = localStorage.getItem(SAVE_KEY_SCORE);

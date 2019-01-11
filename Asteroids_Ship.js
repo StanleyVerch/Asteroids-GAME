@@ -1,3 +1,23 @@
+/* Created an Ship class
+  *  this sets the properties of the Game  
+  * 	this._xPos       	x position of the ship (center of canvas)
+  *	 	this._yPos       	y position of the ship (center of canvas)
+  *	    this._radius		size of the ship based on constant
+  *		this._angle			angle this ship is pointed in radians (must be between 0 and 2 Pi)
+  *	    this._rotation		rotation of the ship
+  *	    this._thrusting 	flag to determine if ship is moving 
+  *	    this._thrust_xPos   speed of thrust in x direction
+  *	    this._thrust_yPos   speed of thrust in y direction
+  *	    this._blinkNum  	when ship is destroyed give ship invincible status make the ship blink on screen
+  *	    this._blinkTime    	how long the ship is invincible after it is destroyed.
+  *	    this._explodeTime 	time the ship takes to  be destroyed.
+  *	    this._canShoot 		has the ship= true; 
+  *	    this._laserBullets  contains the bullets of the laser
+  *	    this._shipDead 		is the ship destroyed
+  *		
+  * code based on the work on the youtube channel Mt. Ford Studios -- Asteroids in JavaScript (1979 Atari game) - tutorial
+  * Revised by: Stanley Verch  - tutorial */
+
 class Ship {
      constructor() {
         this._xPos = canv.width / 2;
