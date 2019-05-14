@@ -109,7 +109,7 @@ class NeuralNetwork {
             }
         }
 		
-        // calculate the deltas (errors * derivitive of the output)
+        // calculate the deltas (errors * derivative of the output)
         let outputDerivs = Matrix.map(outputs, x => sigmoid(x, true));
         let outputDeltas = Matrix.multiply(outputErrors, outputDerivs);
 
@@ -117,7 +117,7 @@ class NeuralNetwork {
         let weights1T = Matrix.transpose(this.weights1);
         let hiddenErrors = Matrix.dot(outputDeltas, weights1T);
 
-        // calculate the hidden deltas (errors * derivitive of hidden)
+        // calculate the hidden deltas (errors * derivative of hidden)
         let hiddenDerivs = Matrix.map(this.hidden, x => sigmoid(x, true));
         let hiddenDeltas = Matrix.multiply(hiddenErrors, hiddenDerivs);
 

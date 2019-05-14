@@ -20,8 +20,8 @@
 
 class Ship {
      constructor() {
-        this._xPos = canv.width / 2;
-        this._yPos = canv.height / 2;
+        this._xPos = canvas_width / 2;
+        this._yPos = canvas_height / 2;
         this._radius = SHIP_SIZE / 2;
         this._angle = 90 / 180 *  Math.PI ;   // convert to radians.
         this._rotation = 0;   // convert to radians.
@@ -134,7 +134,7 @@ class Ship {
 
     rotateShip() {
         this._angle  += this._rotation  ;
-        
+
         if (this._angle < 0) {
             this._angle += (Math.PI * 2);
         } else if (this._angle >= (Math.PI * 2)) {
@@ -147,13 +147,13 @@ class Ship {
         this._yPos += this._thrust_yPos;
             // handle edge of screen
        if (this._xPos < 0 - this._radius) {
-           this._xPos = canv.width + this._radius;
-       } else if (this._xPos > canv.width + this._radius) {
+           this._xPos = canvas_width + this._radius;
+       } else if (this._xPos > canvas_width + this._radius) {
            this._xPos = 0 - this._radius;
        }
        if (this._yPos < 0 - this._radius) {
-           this._yPos = canv.height + this._radius;
-       } else if (this._yPos > canv.height + this._radius) {
+           this._yPos = canvas_height + this._radius;
+       } else if (this._yPos > canvas_height + this._radius) {
            this._yPos = 0 - this._radius;
        }
    }
@@ -300,7 +300,7 @@ class Ship {
             let bulletDistance = this._laserBullets[i].distance;
 
             // check distance travelled
-            if (bulletDistance > BULLET_DIST * canv.width) {
+            if (bulletDistance > BULLET_DIST * canvas_width) {
                 this._laserBullets.splice(i, 1);
                 continue;
             }
@@ -323,13 +323,13 @@ class Ship {
                 
                 // handle edge of screen
 	        	if (this._laserBullets[i].xPos < 0) {
-	        		this._laserBullets[i].xPos = canv.width;
-	        	} else if (this._laserBullets[i].xPos > canv.width) {
+	        		this._laserBullets[i].xPos = canvas_width;
+	        	} else if (this._laserBullets[i].xPos > canvas_width) {
 		        	this._laserBullets[i].xPos= 0;
 	        	}
 	        	if (this._laserBullets[i].yPos < 0) {
-        			this._laserBullets[i].yPos = canv.height;
-	        	} else if (this._laserBullets[i].yPos > canv.height) {
+        			this._laserBullets[i].yPos = canvas_height;
+	        	} else if (this._laserBullets[i].yPos > canvas_height) {
 	        		this._laserBullets[i].yPos = 0;
 	        	}
             }

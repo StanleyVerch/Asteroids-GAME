@@ -5,9 +5,27 @@
   * Revised by: Stanley Verch  - tutorial */
 
 /** @type {HTMLCanvasElement} */
-let canv = document.getElementById("gameCanvas");
-let ctx = canv.getContext("2d");
+let canvas = document.getElementById("gameCanvas");
+let ctx = canvas.getContext("2d");
 
+let canvas_width  = canvas.width;
+let canvas_height = canvas.height;
+let utilityObj      = new Utils()
+var AUTOMATION_ON = false; 
+
+
+var urlParams = new URLSearchParams(window.location.search);
+var entries = urlParams.entries();
+
+if ( urlParams.has('AUTOMATION_ON') == true )  { 
+    var entries = urlParams.entries();
+    for(pair of entries) { 
+        console.log(pair[0], pair[1]); 
+    }
+    if (pair[0] == "AUTOMATION_ON"  && pair[1].toUpperCase() == "YES" ) {
+        AUTOMATION_ON = true;
+    } 
+}                                       
 
 // set up the game parameters
 var aShip, asteroids, aGame;
@@ -24,8 +42,8 @@ if (AUTOMATION_ON) {
 
     for (let i = 0; i < NUM_SAMPLES; i++) {
         // random asteroid location (include off-screen data)
-        ax = Math.random() * (canv.width + ASTEROID_SIZE) - ASTEROID_SIZE / 2;
-        ay = Math.random() * (canv.height + ASTEROID_SIZE) - ASTEROID_SIZE / 2;
+        ax = Math.random() * (canvas_width + ASTEROID_SIZE) - ASTEROID_SIZE / 2;
+        ay = Math.random() * (canvas_height + ASTEROID_SIZE) - ASTEROID_SIZE / 2;
         
         // ship's angle and position
         sa = Math.random() * Math.PI * 2;
@@ -33,7 +51,7 @@ if (AUTOMATION_ON) {
         sy = aShip.yPos;
         
         // calculate the angle to the asteroid
-        let angle = angleToPoint(sx, sy, sa, ax, ay);
+        let angle = utilityObj.angleToPoint(sx, sy, sa, ax, ay);
         
 
         // determine the direction to turn
@@ -53,17 +71,12 @@ document.addEventListener("keyup", keyUp);
 // setup the game loop here...
 setInterval(drawScreen, 1000/ FPS);
 
-function angleToPoint(x, y, bearing, targetX, targetY) {
-    let angleToTarget = Math.atan2(-targetY + y, targetX - x);
-    let diff = bearing - angleToTarget;
-    return (diff + Math.PI * 2) % (Math.PI * 2);
-}
 
 function normaliseInput(asteroid_xPos, asteroid_yPos, asteroid_angle, shipA) {
     // normalise the values to between 0 and 1
     let input = [];
-    input[0] = (asteroid_xPos + ASTEROID_SIZE / 2) / (canv.width + ASTEROID_SIZE);
-    input[1] = (asteroid_yPos + ASTEROID_SIZE / 2) / (canv.height + ASTEROID_SIZE);
+    input[0] = (asteroid_xPos + ASTEROID_SIZE / 2) / (canvas_width + ASTEROID_SIZE);
+    input[1] = (asteroid_yPos + ASTEROID_SIZE / 2) / (canvas_height + ASTEROID_SIZE);
     input[2] = asteroid_angle / (Math.PI * 2);
     input[3] = shipA / (Math.PI * 2);
     return input;
@@ -78,13 +91,13 @@ function normaliseInput(asteroid_xPos, asteroid_yPos, asteroid_angle, shipA) {
         aShip.shootLaser();
 		break;
    case 37: // left arrow (rotate ship left)
-        aShip.rotation=(SHIP_TURN_SPD / 180 * Math.PI / FPS);
+        aShip.rotation=( utilityObj.degreesToRads(SHIP_TURN_SPD)/FPS );
        break;
    case 38: // up arrow (thrust the ship forward)
         aShip.thrusting = true;
        break;
    case 39: // right arrow (rotate ship right)
-        aShip.rotation = (-SHIP_TURN_SPD / 180 * Math.PI / FPS);
+        aShip.rotation = ( utilityObj.degreesToRads(-SHIP_TURN_SPD)/FPS);
        break;
    }
 }
@@ -122,12 +135,12 @@ function  drawScreen()  {
         let shipY   = aShip.yPos;
         let ax      = asteroids.asteroids[0].xPos;
         let ay      = asteroids.asteroids[0].yPos;
-        let dist0 = distBetweenPoints(shipX, shipY, ax, ay);
+        let dist0 = utilityObj.distanceXY(shipX, shipY, ax, ay);
         
         for (let i = 1; i < numOfAsteroids; i++) {
             let ax = asteroids.asteroids[i].xPos;
             let ay = asteroids.asteroids[i].yPos;
-            let dist1 = distBetweenPoints(shipX, shipY, ax, ay);
+            let dist1 = utilityObj.distanceXY(shipX, shipY, ax, ay);
             if (dist1 < dist0) {
                 dist0 = dist1;
                 c = i;
@@ -140,7 +153,8 @@ function  drawScreen()  {
         shipA = aShip.angle;
         shipX = aShip.xPos;
         shipY = aShip.yPos;
-        let angle = angleToPoint(shipX, shipY, shipA, ax, ay);
+    
+        let angle = utilityObj.angleToPoint(shipX, shipY, shipA, ax, ay);
         let predict = aNeuralNetwork.feedForward(normaliseInput(ax, ay, angle, shipA)).data[0][0];
        
 
@@ -148,9 +162,9 @@ function  drawScreen()  {
         let dLeft = Math.abs(predict - OUTPUT_LEFT);
         let dRight = Math.abs(predict - OUTPUT_RIGHT);
         if (dLeft < OUTPUT_THRESHOLD) {
-            aShip.rotation=(SHIP_TURN_SPD / 180 * Math.PI / FPS);
+            aShip.rotation=( utilityObj.degreesToRads(SHIP_TURN_SPD)/FPS );
         } else if (dRight < OUTPUT_THRESHOLD) {
-            aShip.rotation=(-SHIP_TURN_SPD / 180 * Math.PI / FPS);
+            aShip.rotation=( utilityObj.degreesToRads(-SHIP_TURN_SPD)/FPS );
         } else {
             aShip.rotation=  0; // stop rotating
         }
@@ -169,7 +183,7 @@ function  drawScreen()  {
 
     //draw background  in canvas Space
     ctx.fillStyle = "black";
-    ctx.fillRect(0,0, canv.width, canv.height );
+    ctx.fillRect(0,0, canvas_width, canvas_height );
 
     // draw asteroids
     asteroids.drawAsteroids();
@@ -258,9 +272,7 @@ function  drawScreen()  {
      asteroids.moveAsteroids();
 
 }
-function distBetweenPoints(x1, y1, x2, y2) {
-    return Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
-}
+
 function newGame() {
     aGame = new Game;
     aShip  = new Ship;

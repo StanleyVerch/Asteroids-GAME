@@ -73,21 +73,21 @@ class Game {
         ctx.textBaseline = "middle";
         ctx.fillStyle = "white";
         ctx.font = TEXT_SIZE + "px dejavu sans mono";
-        ctx.fillText(this._score, canv.width - SHIP_SIZE / 2, SHIP_SIZE);
+        ctx.fillText(this._score, canvas_width - SHIP_SIZE / 2, SHIP_SIZE);
 
         // draw the high score
         ctx.textAlign = "center";
         ctx.textBaseline = "middle";
         ctx.fillStyle = "white";
         ctx.font = (TEXT_SIZE * 0.75) + "px dejavu sans mono";
-        ctx.fillText("BEST " + this._highScore, canv.width / 2, SHIP_SIZE);
+        ctx.fillText("BEST " + this._highScore, canvas_width / 2, SHIP_SIZE);
     }
     drawGameText() {
 		ctx.textAlign = "center";
 		ctx.textBaseAlign = "middle";
 		ctx.fillStyle="rgba(255,255,255," + this.gameTextFade + ")";
  		ctx.font ="small-caps " + TEXT_SIZE + "px dejavu sans mono";
- 		ctx.fillText(this.gameText, canv.width/2, canv.height * 0.75);
+ 		ctx.fillText(this.gameText, canvas_width/2, canvas_height * 0.75);
          this.gameTextFade -= (1.0 / TEXT_FADE_TIME / FPS);
     }
 }

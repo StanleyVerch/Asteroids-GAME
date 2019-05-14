@@ -3,11 +3,12 @@
   * code based on the work on the youtube channel Mt. Ford Studios -- Asteroids in JavaScript (1979 Atari game) - tutorial
   * Revised by: Stanley Verch  - tutorial */
 
+
 const FPS = 60;                     // 30 frames per second
 const GAME_LIVES = 3                // starting number of lives
 const FRICTION = 0.7;               // friction coefficient of space (0 = no friction, 1 = lots of friction)
 const SHIP_SIZE = 30;	            // ship height in pixels
-const SHIP_TURN_SPD = 360;          // turn speed in degrees per second
+const SHIP_TURN_SPD = 3000;          // turn speed in degrees per second
 const SHIP_THRUST = 5;              // acceleration of the ship in pixels per second per second
 const SHIP_EXPLODE_DUR = 0.3;       // duration of the ship's explosion in seconds
 const SHIP_BLINK_DUR = 0.1;         // duration in seconds of a single blink during ship's invisibility
@@ -39,7 +40,7 @@ const OUTPUT_THRESHOLD = 0.05;     // how close the prediction must be to commit
 const RATE_OF_FIRE = 15;           // shots per second
 
 // developer flags
-// const AUTOMATION_ON = false;
+
 const RESET_HIGHSCORE = false;
 const SHOW_CENTRE_DOT = false;      // show or hide ship's centre dot
 const SHOW_BOUNDING = false;        // show or hide collision bounding

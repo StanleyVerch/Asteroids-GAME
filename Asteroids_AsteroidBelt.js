@@ -15,12 +15,16 @@ class AsteroidBelt {
         this._asteroids =[];  
         let x,y, asteroid; 
         let gameLevel = aGame.level;
+        let aShipX = aShip.xPos;
+        let aShipY = aShip.yPos;
+        let aShipR = aShip.radius;
+
         for (var i = 0; i < ASTEROID_NUMBER + gameLevel - 1; i++) {
             do {
-                x = Math.floor(Math.random() * canv.width);
-                y = Math.floor(Math.random() * canv.height);
+                x = Math.floor(Math.random() * canvas_width);
+                y = Math.floor(Math.random() * canvas_height);
                 asteroid = new Asteroid(x,y, Math.ceil(ASTEROID_SIZE / 2) );
-            } while (distBetweenPoints(aShip.xPos, aShip.yPos, x, y) < ASTEROID_SIZE * 2 + aShip.radius );
+            } while ( utilityObj.distanceXY(aShipX, aShipY, x, y) < ASTEROID_SIZE * 2 + aShipR );
             this._asteroids.push(asteroid);
         }
     }
@@ -76,24 +80,29 @@ class AsteroidBelt {
     
             // handle asteroid edge of screen
             if (this._asteroids[i].xPos < 0 - this._asteroids[i].radius) {
-                this._asteroids[i].xPos = canv.width + this._asteroids[i].radius;
-            } else if (this._asteroids[i].xPos > canv.width + this._asteroids[i].radius) {
+                this._asteroids[i].xPos = canvas_width + this._asteroids[i].radius;
+            } else if (this._asteroids[i].xPos > canvas_width + this._asteroids[i].radius) {
                 this._asteroids[i].xPos = 0 - this._asteroids[i].radius;
             }
     		if (this._asteroids[i].yPos < 0 - this._asteroids[i].radius) {
-                this._asteroids[i].yPos = canv.height + this._asteroids[i].radius;
-            } else if (this._asteroids[i].yPos > canv.height + this._asteroids[i].radius) {
+                this._asteroids[i].yPos = canvas_height + this._asteroids[i].radius;
+            } else if (this._asteroids[i].yPos > canvas_height + this._asteroids[i].radius) {
                 this._asteroids[i].yPos = 0 - this._asteroids[i].radius;
             }
         }
     }
     collisionDetect(aShip) {
         let ax, ay, ar;
+
+        let aShipX = aShip.xPos;
+        let aShipY = aShip.yPos;
+        let aShipR = aShip.radius;
+
         for (var i = this._asteroids.length - 1; i >=0; i--) {
             ax = this._asteroids[i].xPos;
             ay = this._asteroids[i].yPos;
             ar = this._asteroids[i].radius; 
-            if (distBetweenPoints(aShip.xPos, aShip.yPos,ax,ay) < aShip.radius + ar) {
+            if ( utilityObj.distanceXY(aShipX, aShipY, ax, ay) < aShipR + ar) {
                 aShip.explodeShip();
                 this.destroyAsteroid(i);
                 break;
@@ -116,7 +125,7 @@ class AsteroidBelt {
 
                 // detect hits
                 if (aShip.laserBullets[j].explodeTime == 0 && 
-                    distBetweenPoints(a_xPos, a_yPos, lb_xPos, lb_yPos) < a_radius) {
+                    utilityObj.distanceXY(a_xPos, a_yPos, lb_xPos, lb_yPos) < a_radius) {
                     
                      // destroy the asteroid and activate the laser explosion
                     this.destroyAsteroid(i);
